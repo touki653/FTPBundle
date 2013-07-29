@@ -1,0 +1,56 @@
+services:
+    ftp.connection:
+        class: Touki\FTP\ConnectionInterface
+        abstract: true
+        factory_service: touki_ftp.connection.factory
+        factory_method: build
+        arguments:
+            - %touki_ftp.secured%
+            - %touki_ftp.host%
+            - %touki_ftp.username%
+            - %touki_ftp.password%
+            - %touki_ftp.port%
+        calls:
+            - [ "open", [] ]
+
+    ftp.wrapper:
+        class: Touki\FTP\FTPWrapper
+        arguments:
+            - @ftp.connection
+
+    ftp.manager:
+        class: Touki\FTP\Manager\FTPFilesystemManager
+        arguments:
+            - @ftp.wrapper
+            - @ftp.filesystem_factory
+
+    ftp.filesystem_factory:
+        class: Touki\FTP\FilesystemFactory
+        public: false
+        arguments:
+            - @ftp.permissions_factory
+
+    ftp.permissions_factory:
+        class: Touki\FTP\PermissionsFactory
+        public: false
+
+    ftp.downloader.voter:
+        class: Touki\FTP\DownloaderVoter
+        calls:
+            - [ "addDefaultFTPDownloaders", [ @ftp.wrapper ] ]
+
+    ftp.uploader.voter:
+        class: Touki\FTP\UploaderVoter
+        calls:
+            - [ "addDefaultFTPUploaders", [ @ftp.wrapper ] ]
+
+    ftp:
+        class: Touki\FTP\FTP
+        arguments:
+            - @ftp.manager
+            - @ftp.downloader.voter
+            - @ftp.uploader.voter
+
+    touki_ftp.connection.factory:
+        class: Touki\Bundle\FTPBundle\ConnectionFactory
+        public: false

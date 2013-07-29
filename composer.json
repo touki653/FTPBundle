@@ -1,0 +1,17 @@
+{
+    "name": "touki/ftp-bundle",
+    "description": "A bundle wrapper for touki/ftp component",
+    "require": {
+        "touki/ftp": "1.*"
+    },
+    "authors": [
+        {
+            "name": "Touki",
+            "email": "g.vincendon@vithemis.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Touki\\Bundle\\FTPBundle": "" }
+    },
+    "target-dir": "Touki/Bundle/FTPBundle"
+}

@@ -65,7 +65,7 @@ $container->get('ftp.connection');
 Holds the connection to the server.
 It opens it by default.
 
-```
+```php
 <?php
 $container->get('ftp.wrapper');
 ?>
@@ -73,7 +73,7 @@ $container->get('ftp.wrapper');
 
 The simple FTP wrapper.
 
-```
+```php
 <?php
 $container->get('ftp.manager');
 ?>
@@ -81,7 +81,7 @@ $container->get('ftp.manager');
 
 The filesystem manager
 
-```
+```php
 <?php
 $container->get('ftp');
 ?>

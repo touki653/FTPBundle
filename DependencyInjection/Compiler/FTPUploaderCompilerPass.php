@@ -22,8 +22,16 @@ class FTPUploaderCompilerPass implements CompilerPassInterface
         $tagged     = $container->findTaggedServiceIds('ftp.uploader');
         $definition = $container->getDefinition('ftp.uploader.voter');
 
-        foreach ($tagged as $id => $attributes) {
-            $definition->addMethodCall("addVotable", array(new Reference($id)));
+        foreach ($tagged as $id => $tagAttributes) {
+            foreach ($tagAttributes as $attributes) {
+                $prepend = false;
+
+                if (isset($attributes['prepend']) && $attributes['prepend'] == 'true') {
+                    $prepend = true;
+                }
+
+                $definition->addMethodCall("addVotable", array(new Reference($id), $prepend));
+            }
         }
     }
 }

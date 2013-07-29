@@ -1,7 +1,6 @@
 services:
     ftp.connection:
         class: Touki\FTP\ConnectionInterface
-        abstract: true
         factory_service: touki_ftp.connection.factory
         factory_method: build
         arguments:
@@ -53,4 +52,3 @@ services:
 
     touki_ftp.connection.factory:
         class: Touki\Bundle\FTPBundle\ConnectionFactory
-        public: false

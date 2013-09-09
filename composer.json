@@ -1,8 +1,9 @@
 {
     "name": "touki/ftp-bundle",
     "description": "A bundle wrapper for touki/ftp component",
+    "license": "MIT",
     "require": {
-        "touki/ftp": "1.*"
+        "touki/ftp": "~1.1.0"
     },
     "authors": [
         {

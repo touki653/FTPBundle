@@ -43,12 +43,24 @@ services:
         calls:
             - [ "addDefaultFTPUploaders", [ @ftp.wrapper ] ]
 
+    ftp.creator.voter:
+        class: Touki\FTP\CreatorVoter
+        calls:
+            - [ "addDefaultFTPCreators", [ @ftp.wrapper, @ftp.manager ] ]
+
+    ftp.deleter.voter:
+        class: Touki\FTP\DeleterVoter
+        calls:
+            - [ "addDefaultFTPDeleters", [ @ftp.wrapper, @ftp.manager ] ]
+
     ftp:
         class: Touki\FTP\FTP
         arguments:
             - @ftp.manager
             - @ftp.downloader.voter
             - @ftp.uploader.voter
+            - @ftp.creator.voter
+            - @ftp.deleter.voter
 
     touki_ftp.connection.factory:
         class: Touki\Bundle\FTPBundle\ConnectionFactory
